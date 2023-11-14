@@ -1,9 +1,11 @@
 import Database from "../Database/index.js";
 function CourseRoutes(app) {
+
     app.get("/api/courses/:id", (req, res) => {
         const { id } = req.params;
         const course = Database.courses
           .find((c) => c._id === id);
+          console.log(course);
         if (!course) {
           res.status(404).send("Course not found");
           return;
@@ -17,10 +19,10 @@ function CourseRoutes(app) {
         console.log(req.body)
         const course = req.body;
         Database.courses = Database.courses.map((c) =>
-          c._id.toString() === id.toString() ? { ...c, ...course } : c
+          c._id === id ? { c, ...course } : c
         );
         console.log(Database.courses);
-        res.sendStatus(204);
+        res.send(course);
       });
     
     app.delete("/api/courses/:id", (req, res) => {
