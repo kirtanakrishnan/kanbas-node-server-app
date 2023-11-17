@@ -15,6 +15,18 @@ const assignment = {
   
   
   function Lab5(app) {
+
+    app.get("/a5/todos/create", (req, res) => {
+      const newTodo = {
+        id: new Date().getTime(),
+        title: "New Task",
+        completed: false,
+      };
+      todos.push(newTodo);
+      res.json(todos);
+    });
+    
+    
     app.post("/a5/todos", (req, res) => {
         const newTodo = {
           ...req.body,
@@ -60,15 +72,8 @@ const assignment = {
       });
     
     
-      app.get("/a5/todos/create", (req, res) => {
-        const newTodo = {
-          id: new Date().getTime(),
-          title: "New Task",
-          completed: false,
-        };
-        todos.push(newTodo);
-        res.json(todos);
-      });
+     
+    
       
       app.delete("/a5/todos/:id", (req, res) => {
         const { id } = req.params;
